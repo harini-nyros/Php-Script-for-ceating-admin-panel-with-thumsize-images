@@ -1,0 +1,149 @@
+<?php
+/*session_start();
+
+?>
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<style>
+body
+{
+ background:#5A5B5B;
+}
+#total
+{
+  background:#E0E0E0;
+  margin-top: 88px;
+ margin-left: 200px;
+ border-radius: 30px;
+
+}
+.log
+{
+	background:#D3D3D3;
+	margin-left: 29px;
+
+
+}
+hr
+{
+	border-top:2px solid #5A5B5B;
+}
+h3
+{
+	margin-left: 32px;
+	margin-top: 21px;
+	color:#5AA0B0;	
+
+}
+#login
+{
+	margin-left: 29px;
+
+}
+span
+{
+	color:red;
+}
+p
+{
+	margin-top:20px;
+	margin-left:49px;
+}
+.pagination
+{
+	margin-left:10px;
+
+}
+</style>
+</head>
+<form name="login" method="post" action="" class="form-horizontal" onsubmit=Validate()>
+<div class="pagination">
+  <ul>
+	 <li><a href="index.php">Home</a></li>
+  </ul>
+</div>
+<div class="container">
+<div class="span6" id="total">
+
+<div class="row">
+<div class="span6">
+	<img src="images/friend3.png" style="float:left; padding-top: 13px; margin-left: 19px;" />
+	<h3><b>Administrator Log In</b></h3>
+	<hr>
+</div>
+</div>   
+<div class="row" >
+<div class="span6">   
+	<div class="control-group"><!-- User Name-->
+      <input type="text" name="username" id="username" placeholder="Admin Username" class="log">
+</div>
+
+<div class="control-group"><!-- Password-->
+      <input type="password"  name="password" id="password" placeholder="Admin Password" class="log">
+</div>
+<div class="control-group">
+			<input type="submit"  name="Login" class="btn btn-info" value="Login" id="login" />
+    		
+	</div>
+</div>
+</div>
+<div style="clear:both"></div>
+<script type="text/javascript" language="javascript">
+    function Validate()
+    {
+    var UName=document.getElementById('username');
+    var Password=document.getElementById('password');
+    	if((UName.value =='') || (Password.value ==''))
+    	{
+      		alert('UserName or Password should not be blank');
+       		return false;
+      
+    	}
+   	
+     
+    }
+    </script>
+
+
+<?php
+		if (isset($_POST['Login'])) 
+		{
+			$username=$_POST['username'];
+			$password=$_POST['password'];
+			if(($username == '')|| ($password == ''))
+			{
+			}
+			else
+			{	
+			mysql_connect("localhost","root","root");
+			mysql_select_db("usersdb");
+			$login = mysql_query("select * from Adminlogin where UserName = '$username' and
+   Password ='$password'");
+   if(mysql_num_rows($login) == 1) 
+	{ 
+               $details=mysql_fetch_array($login);
+      		echo "Login Successfull";
+		session_register('userid');
+		$_SESSION['userid']=$details['id'];
+		header("Location:admnoperations.php");
+		exit(); 
+
+   	}
+
+   else 
+	{
+		echo "<p> <font color=Red>Username and Password does not Match</font> </p>"; 
+		
+   	}
+	}
+
+
+
+
+}
+?>
+
+</body>
+</html>*/

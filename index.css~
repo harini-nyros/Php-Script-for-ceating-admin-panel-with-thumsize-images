@@ -1,0 +1,54 @@
+
+
+#username
+{
+	background-image:url('images/user.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:17px
+}
+#password
+{
+	background-image:url('images/lock.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:17px
+}
+#phonenum
+{
+	background-image:url('images/phone.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:17px
+}
+span
+{
+	color:red;
+
+}
+#filename
+{
+	border:0px;
+
+}
+#firstname
+{
+	background-image:url('images/user_orange.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:17px
+
+
+}
+#lastname
+{
+	background-image:url('images/user_red.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:17px
+
+
+}
+
+
+

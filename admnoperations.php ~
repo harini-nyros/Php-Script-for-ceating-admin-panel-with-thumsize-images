@@ -1,0 +1,231 @@
+<?php
+session_start();
+if($_SESSION['adminuserid']=='')
+{
+header("Location:index.php");
+}
+if (isset($_POST['logout'])) 
+		{
+			session_destroy(); 
+			header("Location:login.php");
+		}
+
+$userid=$_SESSION['userid'];
+mysql_connect("localhost","root","root");
+mysql_select_db("usersdb");
+?>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet"  href="css/demo_table.css"/>
+<link rel="stylesheet"  href="css/demo_table_jui.css"/>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.4.custom.css">
+<script src="js/jquery.js"></script>
+<script src="js/boostrap-model.js"></script>
+<script src="js/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="js/jquery-ui-tabs.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() 
+	{
+
+		var obj=$('#example').dataTable({
+			"bJQueryUI": true,
+			"aLengthMenu": [5, 10,15,20],
+			 "bPaginate":true,
+			 "sPaginationType":"full_numbers",
+			"sDom":'<"top"fls>rt<"bottom"p><"clear">',
+			"sScrollX": "150%",
+			"sScrollY": 200,
+			"sScrollXInner": "110%",
+			"bFilter":true,
+			"oLanguage":
+					  {
+							
+							"sLengthMenu": "Displaying  _MENU_ records per page",
+            						"sZeroRecords": "Nothing found - sorry"
+					 
+					}
+			
+
+						
+		});
+		$("tfoot input").keyup( function () 
+				{
+					/* Filter on the column (the index) of this element */
+					obj.fnFilter(this.value, $("tfoot input").index(this));
+				});			
+					
+					
+					
+
+});
+</script>
+<style>
+body
+{
+	background:#E6E6E6;
+
+}
+#total
+{
+	width:1105px;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #B0B0B2;
+	border-radius:3px;
+	
+
+}
+#main
+{
+	margin:auto;
+
+}
+table
+{
+	
+	margin-top:0px;
+}
+#example_wrapper
+{
+	margin-bottom:0px;
+}
+.names
+{
+	background:#0F7260;
+	color:#CDF4EF;
+	font-size:20px;
+}
+.datatables_wrapper
+{
+	
+	width:1100px;
+
+
+}
+h1
+{
+	color:#894900;
+	text-align:center;
+	text-transform:capitalize;
+	font-family:myOwnFont1;
+}
+@font-face
+{
+	font-family:myOwnFont1;
+	src:url('css/fonts/alex-brush/AlexBrush-Regular-OTF.otf');
+
+}
+a
+{
+	color:black;
+
+}
+.det
+{
+	padding-left:2px;
+
+}
+.dataTables_filter input
+{
+	height:36px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="pagination">
+  <ul>
+	 <li><a href="login.php">Back</a></li>
+    	
+  </ul>
+</div>
+<form name="myform" method="post" action="">
+<input type="submit" class="btn btn-warning" value=LOGOUT name="logout" />
+</form>
+<h1><b>Administrator blog</b></h1>
+<div id="total">
+<div id="main">
+<table border="1"  id="example" class="table table-bordered" id="example" >
+<thead>
+<tr class="names">
+<th>UserName</th>
+<!--<th>Password</th>--> 
+<!--<th>ConfirmPassword</th>--> 
+<th>FirstName</th> 
+<!--<th>LastName</th> 
+<!--<th>Profilepic</th>-->
+<th>Gender</th> 
+<th>DateOfBirth</th> 
+<th>Email</th>
+<th>Delete</th>
+<th>Edit</th>
+<th>Add</th>
+<th>Mail</th>
+<th>Thumbsize</th>
+</tr> 
+</thead>
+<tbody>
+<?php
+$sql = mysql_query("SELECT * FROM Userregistration where role='user'");
+while ($row = mysql_fetch_array($sql)) 
+{
+//print_r ($row);
+$id=$row['id'];
+$username  = $row['UserName'];
+$password  = $row['Password'];
+//$confirmpassword = $row['ConfirmPassword'];
+$firstname = $row['FirstName'];
+//$lastname  = $row['LastName']; 
+$gender = $row['Gender']; 
+$dateofbirth = $row['DateOfBirth'];
+$date=date("jS M Y",strtotime($dateofbirth));
+//$hobbies = $row['Hobbies']; 
+$email   = $row['Email'];
+$profilepic = $row['ProfilePic'];
+$role=$row['role'];
+?>
+
+<tr>
+<td><b><?php echo $username; ?></b></td>
+<!--<td><b><?php echo $password; ?></b></td>-->
+<!--<td><b><?php echo $confirmpassword ;?></b></td>-->
+<td><b><?php echo $firstname;?></b></td>
+<!--<td><b><?php echo $lastname;?></b></td>-->
+<td><b><?php echo $gender; ?></b></td>
+<td><b><?php echo $date; ?></b></td>
+<!--<td><b><?php echo $hobbies ; ?></b></td>-->
+<td><b><?php echo $email; ?></b></td>
+<td><a href="delete.php?id=<?php echo $id;?>"><img class="det" width=20px height=20px src="images/1366453824_delete_user.png"/></a></td>
+<td><a href="editadmin.php?id=<?php echo $id;?>"><img class="det" width=20px height=20px src="images/pencil.png"></a></td>
+<td><a href="add.php"><img class="det" width=20px height=20px src="images/add.png"></a></td>
+<td><a href="mail.php?id=<?php echo $id;?>"><img class="det" width=30px height=30px src="images/mail.png"></a></td>
+<td><img src="<?php echo 'uploads/Thumbsizes/'.$profilepic;?>"/></td>
+</tr>
+<?php 
+}
+
+?>
+</tbody>
+<tfoot>
+<tr class="names">
+<th><input type="text" class="search_init" placeholder="search username" style="height:30px"/></th>
+<th><input type="text" class="search_init" placeholder="search" style="height:30px"/></th>
+<th><input type="text" class="search_init" placeholder="search" style="height:30px"/></th>
+<th><input type="text" class="search_init" placeholder="search" style="height:30px"/></th>
+<th><input type="text" class="search_init"  placeholder="search Email" style="height:30px" /></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</body>
+</html>

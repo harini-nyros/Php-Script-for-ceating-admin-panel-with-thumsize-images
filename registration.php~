@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Assignment7</title> <!-- Title of the page-->
+
+<!--linking Style Sheets-->
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/reg.css">
+<!-- linking Javascript Files-->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script src="js/validations.js"></script>
+</head><!--Head Ending-->
+
+<body><!-- body begining-->
+<!--Container-->
+<!-- Form --> 
+<form name="myForm" method="post" action=""  onsubmit="return formValidate(this)" class="form-horizontal" enctype="multipart/form-data" >
+<?php
+		if (isset($_POST['Register'])) 
+		{
+			
+			//echo "registered";
+			mysql_connect("localhost","root","root") or die(mysql_error());
+			//echo "connected to mysql,&nbsp;";
+			mysql_select_db("usersdb")or die( "<p><span style=\"color: red;\">Unable to select database</span></p>");
+			$username=$_POST['username'];
+			//echo $username;
+			$password=$_POST['password'];
+			//$password = md5($password);
+			//echo $password;
+			$confirmpassword=$_POST['confirmpassword'];
+			//$hash1 = md5($confirmpassword);
+			//echo $confirmpassword;
+			$firstname=$_POST['firstname'];
+			//echo $firstname;
+			$lastname=$_POST['lastname'];
+			//echo $lastname;
+			$filename=$_POST['filename'];
+			//echo $filename;
+			$filename1= $_FILES['filename']['name'];
+			//echo $filename1;
+			$fileTmpLoc = $_FILES['filename']['tmp_name'];
+			//echo $fileTmpLoc ;					
+			$type = $_FILES['filename']['type'];
+			$spath = "uploads/";
+			/*if(move_uploaded_file($fileTmpLoc,$spath.$filename1))
+			{
+				chmod($spath.$filename1, 0777);
+			}*/
+			$sex=$_POST['sex'];
+			//echo $sex;
+			$date = $_POST['year']."-". $_POST['month']."-".$_POST['day'];
+			//echo $date;
+			//$hobbies=$_POST['hobbies'];
+			//echo $hobbies;
+			$hobbies = implode(",",$_POST['hobbies']);
+			//echo $hobbies;
+			$email=$_POST['email'];
+			//echo $email;
+			/*$result=MYSQL_QUERY("INSERT INTO Userregistration(UserName,Password,ConfirmPassword,FirstName,LastName,ProfilePic,Gender,DateOfBirth,Hobbies,Email)".
+"VALUES ('$username', '$password', '$confirmpassword', '$firstname', '$lastname','$filename1','$sex', '$date', '$hobbies','$email')")or die( "<p><span style=\"color: red;\">Unable to select table</span></p>");
+mysql_close();
+	//confirm
+echo "<p><span style=\"color: red;\">Thank You; your comments have been entered in my database. DO NOT REFRESH THE PAGE or data will be sent again.</span></p>";
+  Header("Location: login.php"); */
+}
+else
+{
+// close php so we can put in our code	
+		//Header("Location: login.php"); 	
+		}
+?>
+<div class="container">
+<div class="row" id="total">
+<div class="row">
+<div class="span10">
+
+	<h4>Register For Free Account</h4>
+	<hr>
+</div>
+</div>   
+<div class="row main">
+<div class="span10">   
+	<div class="control-group"><!-- User Name-->
+    <label class="label">User Name:</label>
+    <div class="controls">
+      <input type="text" name="username" id="username" placeholder="Username" onblur="return user_validation(this)"/>
+    </div>
+</div>
+
+<div class="control-group" ><!-- Password-->
+    <label class="control-label">Password:</label>
+    <div class="controls">
+      <input type="password"  name="password" id="password" placeholder="Password" onblur="return pwd_validation(this)"/>
+    </div>
+</div>
+<div class="control-group"><!-- Password-->
+    <label class="control-label">Confirm Password:</label>
+    <div class="controls">
+      <input type="password"  name="confirmpassword" id="comfirmpassword" placeholder="Password" onblur="return cnfrmpwd_validation(this)" />
+    </div>
+</div>
+       
+    
+
+<div class="control-group" >
+    <label class="control-label">First Name:</label>
+    <div class="controls">
+      <input type="text" name="firstname" id="firstname" placeholder="firstname">
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="lastname">Last Name:</label>
+    <div class="controls">
+      <input type="text"  name="lastname" id="lastname" placeholder="lastname">
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="label" for="pic">Profile Pic :</label>
+    <div class="controls">
+      <input type="file" name="filename" id="filename" >
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="label" for="gen">Gender:</label>
+
+    <div class="controls">
+      	<label class="radio  inline">
+  		<input type="radio" name="sex" id="male" value="Male">Male
+	</label>
+	
+	<label class="radio  inline">
+		  <input type="radio" name="sex" id="female" value="female">Female
+	</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="dob">Date of Birth :</label>
+    <div class="controls">
+<!--<select id="fullviewbday" name="fullviewbday" style="width:140px;" onchange="return setfullviewbday(this.value);"></select>-->
+     <select  name="day" id="day" >
+<option value="default">Select Day</option>
+<?php
+	
+	for($i=1;$i<=31;$i++)
+	{
+?>
+<option value="<?php echo $i; ?> "><?php echo $i ;?></option>
+<?php
+	}
+
+?>
+</select>
+  
+<select  name="month" id="month">
+					<option value="default">Select Month</option>
+					<option name="January" value="1">January</option>
+					<option name="February" value="2">February</option>
+					<option name="March" value="3">March</option>
+					<option name="April" value="4">April</option>
+					<option name="May" value="5">May</option>
+					<option name="June" value="6">June</option>
+					<option name="July" value="7">July</option>
+					<option name="August" value="8">August</option>
+					<option name="September" value="9">September</option>
+					<option name="October" value="10" >October</option>
+					<option name="November" value="11">November</option>
+					<option name="December" value="12">December</option>
+					</select>
+<!--<select id="fullviewbyear" name="fullviewbyear" style="width:140px;" onchange="return setfullviewbyear(this.value);"></select>-->
+<select name="year" id="year">
+<option value="default">Select Year</option>
+<?php
+	for($i=2013;$i>$i-2;$i--)
+	{
+?>
+<option value="<?php echo $i; ?> "><?php echo $i ;?></option>
+<?php
+	}
+
+?>
+
+
+
+
+
+  <!--<option value="1995">1995</option>
+  <option value="1996">1996</option>
+  <option value="1997">1997</option>
+  <option value="1998">1998</option>
+  <option value="1999">1999</option>
+  <option value="2000">2000</option>
+  <option value="2001">2001</option>
+  <option value="2002">2002</option>
+  <option value="2003">2003</option>
+  <option value="2004">2004</option>
+  <option value="2005">2005</option>
+  <option value="2006">2006</option>
+  <option value="2007">2007</option>
+  <option value="2008">2008</option>
+  <option value="2009">2009</option>-->
+  
+</select>
+	
+	
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">Hobbies :</label>
+
+    <div class="controls">
+      	<label class="checkbox inline">
+  		<input id="hobbies1" type="checkbox" name="hobbies[]" value="painting">Painting
+	</label>
+	
+	<label class="checkbox inline">
+		  <input id="hobbies2" type="checkbox" name="hobbies[]" value="Singing">Singing
+	</label>
+
+      	<label class="checkbox inline">
+  		<input id="hobbies3" type="checkbox" name="hobbies[]" value="Travelling">Travelling
+	</label>	
+	<label class="checkbox inline">
+		  <input id="hobbies6" type="checkbox" name="hobbies[]" value="Others">Others
+	</label>
+    </div>
+</div>       
+
+	
+
+	<div class="control-group">
+    		<label class="control-label">Email:</label>
+    		<div class="controls">
+      			<input type="text"  name="email" placeholder="Email" />
+			
+    		</div>
+	</div>
+
+	<div class="control-group" style="padding-left:50px">
+    		<div class="controls">
+			<input type="submit"  name="Register" class="btn btn-success" value="Register" />
+    		</div>
+	</div>
+	 <div id="alert" class="alert-success" style="visibility:hidden" > 
+	<button id="close" class="close" data-dismiss="alert" type="button">&times;</button>
+          <strong>Congrats</strong>&nbsp;Your Details are Successfully submitted
+       </div>
+       
+
+
+
+
+
+
+</div>
+</div>
+</div>
+</div><!--Container-->
+</form>
+  <!--<script>
+	var fullviewmyselect = document.getElementById("fullviewbday"), fullviewbday = 1;
+	fullviewmyselect.add(new Option("Select Day",""));
+	var fullviewgen = function(fullviewmax){
+	do
+	{
+	fullviewmyselect.add(new Option(fullviewbday++,fullviewbday-1,fullviewmax--),null);
+	}
+	while(fullviewmax>0);}(31);
+</script>
+<script>
+	var fullviewmyselect = document.getElementById("fullviewbyear"), fullviewyear = new Date().getFullYear();
+fullviewmyselect.add(new Option("Select Year",""));
+var fullviewgen = function(fullviewmax){do{fullviewmyselect.add(new Option(fullviewyear--,fullviewyear+1,fullviewmax--),null);}while(fullviewmax>0);}(60);
+</script>-->
+</body>
+</html>
+
+

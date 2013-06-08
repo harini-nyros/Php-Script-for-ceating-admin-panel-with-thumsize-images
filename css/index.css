@@ -1,0 +1,56 @@
+
+
+#username
+{
+	background-image:url('inputimages/user.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:22px
+}
+#password
+{
+	background-image:url('inputimages/lock.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:22px
+}
+
+span
+{
+	color:red;
+
+}
+#filename
+{
+	border:0px;
+
+}
+#firstname
+{
+	background-image:url('inputimages/user_orange.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:22px
+
+
+}
+#lastname
+{
+	background-image:url('inputimages/user_red.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:22px
+
+
+}
+#comfirmpassword
+{
+	background-image:url('inputimages/bullet_key.png');
+	background-repeat:no-repeat;
+	background-position:3px 6px;
+	padding-left:22px
+
+}
+
+
+

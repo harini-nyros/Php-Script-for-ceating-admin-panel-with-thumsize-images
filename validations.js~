@@ -1,0 +1,286 @@
+
+function formValidate(myForm) 
+{
+  if(validate())  
+  {
+	return true;
+	//window.location.reload();
+   }
+  else 
+  {
+	return false
+  }
+}//End of formvalidate
+
+function validate() 
+{
+	var total=document.myForm.elements;
+	//alert(total);//Bringing all the elements in the form
+	var i=0;
+	var j=0;
+	var temp=0;
+	var pwdvalue;
+	 count = 0;
+	var count1=document.myForm.elements.length;
+	for(i=0; i<total.length; i++)//looping through the form elements
+	{
+	if (total[i].tagName == "INPUT")
+	 {
+           	 if (total[i].type == "text") 
+				{
+					if (validation_textbox(total[i])) 
+					{
+						count ++;
+						
+					}
+	
+            			}
+	 	  if (total[i].type == "password") 
+			{
+				if(total[i].name =="password")
+				{
+					if(password_textbox(total[i])) 
+					{
+						count ++;
+					}
+			  }
+				else
+				{
+					if (confirm_password(total[i])) 
+					{
+						count ++;
+					}
+				}
+            		}
+
+		 if(total[i].type=="file")
+			{
+				if(validation_file(total[i])) {
+					count ++;
+				}
+
+			}
+            	 if (total[i].type == "checkbox") 
+			{
+				if(validateCheckBox(total[i])) 
+				{
+					count ++;
+				}
+           	 	}
+           	 if (total[i].type == "radio") 
+			{
+               			if (validateRadiobutton(total[i])) {
+					count ++;
+				}
+            		}
+		 if (total[i].type == "email") 
+			{
+				if(validation_email(total[i])) {
+					count ++;
+				}
+			
+			}
+		
+         }   
+        else if (total[i].tagName == "SELECT") 
+	{
+		if (validate_selectboxes(total[i])) {
+			count ++;
+		}
+        }
+
+}//End of for loop
+//alert(count1);
+if(count > count1-2)
+{
+	return true;
+}
+else
+
+return false;
+}
+
+			//Validations for textboxes
+function validation_textbox(a)
+{
+	
+	if(a.value == '')
+	{
+		alert("please enter the  " +a.name)
+		a.focus();
+		return false;
+		
+		setTimeout("moretime()",500);
+		
+	}
+	else if(a.value.length >=15 || a.value.length <=2){
+		alert(a.name+" field length must be  2 to 15" );
+		a.focus();
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+
+
+}
+
+//validation for password
+function password_textbox(pwd)
+{
+	pwdvalue=pwd.value;
+	
+	if(pwd.value == '')
+	{
+		alert("please enter the  " +pwd.name)
+		pwd.focus();
+		return false;
+		
+	}
+	else if(pwd.value.length <=2 || pwd.value.length >=10)
+	{	
+		alert(pwd.value);
+		alert(pwd.name+" field length must be  2 to 10" );
+		pwd.focus();
+		return false;
+	}
+	else
+	{
+		pwdvalue;
+		return true;
+	}
+
+}
+ 
+			//Validations for confirm password
+function confirm_password(cnfrmpasswrd)
+{
+	
+	if(cnfrmpasswrd.value == '') 
+	{
+	
+		alert("please enter the  " +cnfrmpasswrd.name);
+		cnfrmpasswrd.focus();
+		return false;
+	}
+	else if(cnfrmpasswrd.value!=pwdvalue) 
+	{
+		alert("Password does not match");
+		cnfrmpasswrd.focus();
+		return false;
+	}
+
+	else 
+	{
+		alert("password matched");
+		    return true;
+	}
+
+}
+			//function to validate file
+function validation_file(a)
+{
+	
+	if(a.value == '')
+	{
+		alert("please choose the  " +a.name)
+		a.focus();
+		return false;
+		
+	}
+	else
+	{
+		return true;
+	}
+}
+
+			//function for validating checkboxes	
+function validateCheckBox(checkbox)
+{
+	
+	
+	   var chx = document.getElementsByName(checkbox.name);
+		 for (var i=0; i<chx.length; i++)
+    		 {
+			if(chx[i].checked==true ) 
+			{
+				
+				return true;
+
+			}
+				
+	
+		 }
+		alert("please check any one checkbox");
+				return false;
+				
+				
+}
+function validateRadiobutton(radio)
+{
+	 var chx = document.getElementsByName(radio.name);
+	
+		 for (var i=0; i<chx.length; i++)
+    		 {
+			if(chx[i].checked ==true ) 
+			{
+				
+				return true;
+				//break;
+
+			}
+			
+				
+		}
+		
+				alert("please check any one Radiobutton");
+				return false;
+							
+			
+}
+
+			//Validations for selectboxes
+function validate_selectboxes(a)
+{
+	
+	if(a.value == "default")
+	{
+		alert("please select  "+ a.name);
+		return false;
+	}
+	else
+	{
+		
+		return true;
+	}
+}
+
+			//Validate Emails
+
+function validation_email(email)
+{
+	 var regex=/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+	mail=email.value;
+	//alert(mail);
+	if(mail.value =='')
+	{
+		alert("enter Email");
+		return false;
+
+	}
+	else if(mail.match(regex)) 
+	{
+		//alert("success");
+		return true;
+	}
+	else 
+	{
+		alert("please enter valid email id");
+		return false;
+	}
+	
+}
+
+
+

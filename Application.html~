@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/app.css">
+<title>Assignment7</title>
+</head>
+<body>
+<div class="container">
+<div class="row" id="header">
+<div class="span12">
+<h1>Fun.com</h1>
+</div>
+</div>
+<div  class="row" id="midle">
+<div class="span12" id="midle" >
+<!--<img src="images/fun.jpg">-->
+<div class="span6" style="float:left">
+<h3>Fum.com Brings all the fun related items which provides more fun to the users.
+It has the features like playing games and watching fun videos</h3>
+<b class="text-error">New User ?</b><br/>
+<button class="btn-success"><a href="registration.php" class="btn-success">Registration</a></button><br>
+<b class="text-error">If already member please login</b><br/>
+<button class="btn-success"><a href="login.php" class="btn-success" >Login</a></button>
+</div>
+<div class="span5" id="image">
+<img src="images/fun.jpg">
+</div>
+
+
+</div>
+</div>
+<div class="row" id="footer">
+<div class="span11">
+<span>Follow us on </span>
+<div>
+<img src="images/facebook.png" style="float:left">
+<img src="images/twitter.png" style="float:left">
+<img src="images/yahoo.png" style="float:left">
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

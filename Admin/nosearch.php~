@@ -1,0 +1,68 @@
+<?php
+session_start();
+if($_SESSION['adminuserid']=='')
+{
+header("Location:../index.php");
+}
+mysql_connect("localhost","root","root");
+mysql_select_db("usersdb");
+?>
+<html>
+<head>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<link rel="stylesheet" href="../css/jquery-ui-1.10.2.custom.css">
+<title>search not found</title>
+<style>
+#midle
+{
+	
+	height:600px;
+	margin:auto;
+	margin-top:10px;
+	background:#EBEBEB;
+	border-radius:50px;
+}
+#main
+{
+	border:2px solid #1C95EB;
+	height:200px;
+	margin-top:20px;
+	margin-bottom:10px;
+	margin-left:100px;
+}
+h3
+{
+	margin-top:20px;
+	margin-left:100px;
+
+
+}
+.back
+{
+	margin-left:40px;
+	font-size:20px;
+	margin-top:20px;
+
+}
+</style>
+<body>
+<?php include 'header.php';?>
+<div class="row">
+<div class="container" id="midle">
+<a href="readcategories.php" class="back">Back</a>
+<h3>Sorry!
+Your search is failed</h3>
+<div id="main" class="span8">
+<h5>For a better result you can.</h5>
+<ul>
+<li>Spell check your search text.</li>
+<li>Try short titles or abbreviations alternatively</li>
+<li>Shorten your search text. </li>
+<li>Browse by categories in categories page</li>
+</ul>
+</div> 
+</div>
+</div>
+<?php include 'footer.php';?>
+</body>
+</html>

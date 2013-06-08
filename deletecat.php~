@@ -1,0 +1,47 @@
+<?php
+session_start();
+
+if($_SESSION['adminuserid']=='')
+{
+header("Location:../index.php");
+}
+mysql_connect("localhost","root","root");
+mysql_select_db("usersdb");
+?>
+<html>
+<head>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<script src="../js/jquery.js"></script>
+<title>Add listings</title>
+<style>
+.row
+{
+	height:500px;
+
+
+}
+</style>
+</style>
+</head>
+<body>
+<?php include 'header.php';?>
+<div class="row">
+<div class="container">
+<select>
+<option value="default"></option>
+<?php
+$result=mysql_query("SELECT * from categories");
+while($row=mysql_fetch_array($result))
+	{
+
+?>
+		<option value="<?php echo $row['category_id']?>"><?php echo $row['category_name']?></option>
+<?php
+	}
+?>
+</select>
+</div>
+</div>
+<?php include 'footer.php';?>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<?php
+session_start();
+if($_SESSION['adminuserid']=='')
+{
+header("Location:../index.php");
+}
+mysql_connect("localhost","root","root");
+mysql_select_db("usersdb");
+$id=$_GET['id'];
+//echo $id;
+?>
+<html>
+<head>
+<link rel="stylesheet" href="../css/bootstrap.css">
+<title>SubcategoryListings</title>
+<style>
+#midle
+{
+	
+	height:600px;
+	margin:auto;
+	margin-top:10px;
+	background:#EBEBEB;
+	border-radius:50px;
+}
+dt
+{
+	float:left;
+	color:#3AA0BE;
+	text-transform:capitalize;
+	
+}
+#center
+{
+	height:500px;
+
+}
+.title
+{
+	color:#C55D00;
+}
+.edit
+{
+	margin-left:570px;
+}
+h3
+{
+	margin-top:25px;
+	margin-left:40px;
+	color:#990000;
+
+
+}
+h5
+{
+	margin-top:25px;
+	margin-left:100px;
+
+
+}
+#main
+{
+	border:2px solid #990000;
+	margin-left:100px;
+	margin-top:30px;
+		
+
+
+}
+#main:hover
+{
+	border:5px outset #990000;
+
+
+
+}
+#main a
+{
+	font-size:16px;
+	margin-top:30px;
+	margin-bottom:10px;
+	margin-left: 17px;
+	
+	
+}
+.back
+{
+	margin-left:40px;
+}
+</style>
+</head>
+<body>
+<?php include 'header.php';?>
+<div class="row">
+<div class="container">
+<div class="span11" id="midle">
+<div id="center">
+<a href="readcategories.php" class="back">Back</a>
+<h3>The below are the subcategories for your category </h3>
+<h5>Please click on the subcategories to view the listings</h5> 
+<div id="main" class="span6">
+<br>
+<?php
+$det=MYSQL_QUERY("SELECT * from admincat where parent_id=$id");
+while ($details = mysql_fetch_array($det))
+{
+	$cat_id=$details['category_id'];
+	//echo $cat_id;
+	$name=$details['name'];
+	//echo $name;
+?>
+	<a href="sublistings.php?id=<?php echo $cat_id;?>"><?php echo $name;?></a><br><br>
+<?php
+}
+?>
+</div>
+</div><!--Center-->
+</div><!--Midle-->
+</div><!--Container closing-->
+</div><!--Row closing-->
+<?php include 'footer.php';?>
+</body>
+</html>

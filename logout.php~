@@ -1,0 +1,18 @@
+<?php
+session_start();
+session_stop();
+header("Location:index.php");
+?>
+<script>
+/*function logout()
+{
+</script>
+	<!--<?php 
+		session_destroy(); //destroy the session
+		header("Location:index.php");
+	?>
+
+<script>
+
+} 
+</script>-->

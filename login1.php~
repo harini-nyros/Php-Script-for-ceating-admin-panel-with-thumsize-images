@@ -1,0 +1,150 @@
+<?php
+session_start();
+
+?>
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<style>
+body
+{
+ background:#5A5B5B;
+}
+#total
+{
+  background:#E0E0E0;
+  margin-top: 88px;
+ margin-left: 200px;
+ border-radius: 30px;
+
+}
+.log
+{
+	background:#D3D3D3;
+	margin-left: 29px;
+
+
+}
+hr
+{
+	border-top:2px solid #5A5B5B;
+}
+h3
+{
+	margin-left: 32px;
+	margin-top: 21px;
+	color:#5AA0B0;	
+
+}
+#login
+{
+	margin-left: 29px;
+
+}
+span
+{
+	color:red;
+}
+</style>
+</head>
+<form name="login" method="post" action="" class="form-horizontal" onsubmit=Validate()>
+<div class="container">
+<div class="span6" id="total">
+<div class="row">
+<div class="span6">
+
+	<h3><b>Sign In</b></h3>
+	<hr>
+</div>
+</div>   
+<div class="row" >
+<div class="span6">   
+	<div class="control-group"><!-- User Name-->
+      <input type="text" name="username" id="username" placeholder="Your Username" class="log value="<?php =$_COOKIE['username']?>"">
+</div>
+
+<div class="control-group"><!-- Password-->
+      <input type="password"  name="password" id="password" placeholder="Your Password" class="log">
+</div>
+<div class="control-group">
+			<input name="remember" type="checkbox" value=""> Remember me
+			<input type="submit"  name="Login" class="btn-info" value="Login" id="login" />
+    		
+	</div>
+</div>
+</div>
+<div style="clear:both"></div>
+
+
+<?php
+		if (isset($_POST['Login'])) 
+		{
+			mysql_connect("localhost","root","root") or die(mysql_error());
+			echo "connected to mysql,&nbsp;";
+			mysql_select_db("usersdb")or die( "<p><span style=\"color: red;\">Unable to select database</span></p>");
+			//$sql="SELECT * FROM $tbl_name WHERE username='$username'";
+			$username=$_POST['username'];
+			//echo $username;
+			$password=$_POST['password'];
+			//$has = md5($password);
+			echo $password;
+			$username = mysql_real_escape_string($username);
+			echo $username;
+			//$password1=md5($password);
+			$password = mysql_real_escape_string($password);
+			echo $password;
+			$result=MYSQL_QUERY("INSERT INTO Userlogin(UserName,Password)".
+"VALUES ('$username', '$password')")or die( "<p><span style=\"color: red;\">Unable to select table</span></p>");
+//mysql_close();
+		$login = mysql_query("select * from Userregistration where USERNAME = '$username' and
+
+   PASSWORD ='$password'");
+		
+
+
+   if(mysql_num_rows($login) == 1) 
+	{
+
+      		echo "Login Successfull";
+		session_register('user');
+		session_register('pass');
+		 $_SESSION['user']=$username;
+		//echo  $_SESSION['user'];
+		 $_SESSION['pass']=$password; 
+			//echo $_SESSION['pass'];
+      	 	header("Location:userdetails.php");
+		exit(); 
+
+   	}
+
+   else 
+	{
+
+      			echo "<p> <font color=Red>Username and Password does not Match</font> </p>"; 
+		
+   	}
+
+
+
+
+}
+?>
+<script type="text/javascript" language="javascript">
+    function Validate()
+    {
+    var UName=document.getElementById('username');
+    var Password=document.getElementById('password');
+    if((UName.value=='') || (Password.value==''))
+    {
+     alert('UserName or Password should not be blank');
+     return false;
+    }
+    else
+    {
+      return true;
+    }
+    }
+    </script>
+</body>
+</html>
